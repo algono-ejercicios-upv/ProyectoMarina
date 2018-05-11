@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -25,7 +24,7 @@ public class Launcher extends Application {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.setTitle("Datos estación marina");
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setOnCloseRequest(evt -> System.exit(0));
         
         stage.setScene(scene);
         stage.show();
