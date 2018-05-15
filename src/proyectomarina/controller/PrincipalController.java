@@ -7,10 +7,11 @@ package proyectomarina.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -19,16 +20,15 @@ import javafx.scene.image.ImageView;
 public class PrincipalController implements Initializable {
 
     @FXML
-    private ImageView dayLightMode;
+    private CheckBox nightMode;
+    @FXML
+    private BorderPane root;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TODO
-    }    
-
-    @FXML
-    private void exit(ActionEvent event) {
-        System.exit(0);
-    }
-    
+        nightMode.setOnAction((evt) -> {
+            if (nightMode.isSelected()) { root.setStyle("-fx-base: rgba(60, 63, 65, 255)"); } //Enable Night Mode
+            else { root.setStyle(Application.STYLESHEET_MODENA); } //Disable Night Mode
+        });
+    }   
 }
