@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -117,16 +119,6 @@ public class MarineAccessor {
         return SOG;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     //====================================================================
     //anadir tantos sentenceListener como tipos de sentence queremos tratar
     // anade todas las clases de que extiendan AbstractSentenceListener que necesites
@@ -135,8 +127,9 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(HDGSentence sentence) {
-            // anadimos el codigo necesario para guardar la información de la sentence    
-            HDG.set(sentence.getHeading());
+            Platform.runLater(() -> {
+                HDG.set(sentence.getHeading());
+            });     
         }
     };
 
@@ -145,10 +138,11 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(MDASentence sentence) {
-            // anadimos el codigo necesario para guardar la información de la sentence 
-            TWD.set(sentence.getTrueWindDirection());
-            TWS.set(sentence.getWindSpeedKnots());
-            TEMP.set(sentence.getAirTemperature());
+            Platform.runLater(() -> {
+                TWD.set(sentence.getTrueWindDirection());
+                TWS.set(sentence.getWindSpeedKnots());
+                TEMP.set(sentence.getAirTemperature());
+            });
         }
     }
     
@@ -157,8 +151,10 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(MWVSentence sentence) {
-            AWA.set(sentence.getAngle());
-            AWS.set(sentence.getSpeed());
+            Platform.runLater(() -> {
+                AWA.set(sentence.getAngle());
+                AWS.set(sentence.getSpeed());
+            });
         }
     }
     
@@ -167,11 +163,13 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(XDRSentence sentence) {
-            List<Measurement> ms = sentence.getMeasurements();
-            for (Measurement m : ms) {
-                if (m.getName().equals("PTCH")) PTCH.set(m.getValue());
-                else if (m.getName().equals("ROLL")) ROLL.set(m.getValue());
-            }
+            Platform.runLater(() -> {
+                List<Measurement> ms = sentence.getMeasurements();
+                for (Measurement m : ms) {
+                    if (m.getName().equals("PTCH")) PTCH.set(m.getValue());
+                    else if (m.getName().equals("ROLL")) ROLL.set(m.getValue());
+                }
+            });
         }
     }
     
@@ -180,9 +178,11 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(RMCSentence sentence) {
-            GPS.set(sentence.getPosition()); // GPS = LAT + LON
-            COG.set(sentence.getCourse());
-            SOG.set(sentence.getSpeed());
+            Platform.runLater(() -> {
+                GPS.set(sentence.getPosition()); // GPS = LAT + LON
+                COG.set(sentence.getCourse());
+                SOG.set(sentence.getSpeed());
+            });
         }
     }
     
@@ -193,7 +193,6 @@ public class MarineAccessor {
         addSentenceReader(new FileInputStream(file));
     }
     public void addSentenceReader(InputStream stream) {
-
         if (reader != null) {  // esto ocurre si ya estamos leyendo un fichero
             reader.stop();
         }
@@ -207,12 +206,15 @@ public class MarineAccessor {
         MDASentenceListener mda = new MDASentenceListener();
         reader.addSentenceListener(mda);
 
-       
+        MWVSentenceListener mwv = new MWVSentenceListener();
+        reader.addSentenceListener(mwv);
+        
+        XDRSentenceListener xdr = new XDRSentenceListener();
+        reader.addSentenceListener(xdr);
 
         RMCSentenceListener rmd = new RMCSentenceListener();
         reader.addSentenceListener(rmd);
         
-                
          //===============================================================
 
          //===============================================================

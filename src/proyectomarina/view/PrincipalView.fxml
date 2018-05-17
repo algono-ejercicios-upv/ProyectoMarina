@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.PrincipalController">
@@ -12,4 +13,11 @@
          </BorderPane.margin>
       </CheckBox>
    </bottom>
+   <top>
+      <Label fx:id="temp" text="Temp" BorderPane.alignment="TOP_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
 </BorderPane>

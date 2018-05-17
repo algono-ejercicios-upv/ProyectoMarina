@@ -8,10 +8,13 @@ package proyectomarina.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import proyectomarina.model.MarineAccessor;
 
 /**
  *
@@ -23,6 +26,8 @@ public class PrincipalController implements Initializable {
     private CheckBox nightMode;
     @FXML
     private BorderPane root;
+    @FXML
+    private Label temp;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -30,5 +35,9 @@ public class PrincipalController implements Initializable {
             if (nightMode.isSelected()) { root.setStyle("-fx-base: rgba(60, 63, 65, 255)"); } //Enable Night Mode
             else { root.setStyle(Application.STYLESHEET_MODENA); } //Disable Night Mode
         });
+        temp.textProperty().bind(Bindings.concat(
+                MarineAccessor.getInstance().TEMPProperty(),
+                " ºC"
+        ));
     }   
 }

@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import proyectomarina.model.MarineAccessor;
 
 /**
  *
@@ -19,6 +20,9 @@ public class Launcher extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        // Carga el archivo .NMEA
+        MarineAccessor.getInstance().addSentenceReader(getClass().getResourceAsStream("/lib/data/Jul_20_2017_1871339_0183.NMEA"));
+        //Carga la ventana principal
         Parent root = FXMLLoader.load(getClass().getResource("/proyectomarina/view/PrincipalView.fxml"));
         
         Scene scene = new Scene(root);
