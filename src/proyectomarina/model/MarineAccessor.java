@@ -61,12 +61,18 @@ public class MarineAccessor {
     public DoubleProperty TWDProperty() {
         return TWD;
     }
+    //Lista de TWD para grafica
+    private final WindChartList TWDList = new WindChartList();
+    public WindChartList TWDList() { return TWDList; }
     
     // True Wind Speed -- intensidad de viento
     private final DoubleProperty TWS = new SimpleDoubleProperty();
     public DoubleProperty TWSProperty() {
         return TWS;
     }
+    //Lista de TWS para grafica
+    private final WindChartList TWSList = new WindChartList();
+    public WindChartList TWSList() { return TWSList; }
     
     // Air Temperature -- temperatura del aire
     private final DoubleProperty TEMP = new SimpleDoubleProperty();
@@ -139,8 +145,12 @@ public class MarineAccessor {
         @Override
         public void sentenceRead(MDASentence sentence) {
             Platform.runLater(() -> {
-                TWD.set(sentence.getTrueWindDirection());
-                TWS.set(sentence.getWindSpeedKnots());
+                double twd = sentence.getTrueWindDirection();
+                TWD.set(twd);
+                TWDList.add(twd);
+                double tws = sentence.getWindSpeedKnots();
+                TWS.set(tws);
+                TWSList.add(tws);
                 TEMP.set(sentence.getAirTemperature());
             });
         }

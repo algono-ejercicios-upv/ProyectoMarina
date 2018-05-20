@@ -11,6 +11,10 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -39,5 +43,16 @@ public class PrincipalController implements Initializable {
                 MarineAccessor.getInstance().TEMPProperty(),
                 " ºC"
         ));
+        //Codigo de prueba para la grafica
+        LineChart<Number, Number> lineChart = new LineChart<>(new NumberAxis(0, 10, 1), new NumberAxis());
+        lineChart.setTitle("Test");
+        lineChart.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        lineChart.setCreateSymbols(false);
+        lineChart.setAnimated(false);
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("TWD");
+        series.setData(MarineAccessor.getInstance().TWDList().getObservableList());
+        lineChart.getData().add(series);
+        root.setCenter(lineChart);
     }   
 }
