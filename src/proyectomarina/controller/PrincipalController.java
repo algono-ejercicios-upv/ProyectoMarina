@@ -9,17 +9,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import proyectomarina.model.MarineAccessor;
+import proyectomarina.model.WindChart;
 
 /**
  *
@@ -45,13 +44,21 @@ public class PrincipalController implements Initializable {
                 " ºC"
         ));
         //Codigo de prueba para la grafica
+        WindChart TWDList = MarineAccessor.getInstance().TWDList();
+        TWDList.setTitle("Test");
+        TWDList.setSeriesName("TWD");
+        TWDList.setXLabel("Minutos pasados desde el momento actual");
+        TWDList.setYLabel("Dirección (grados)");
         LineChart<Number, Number> lineChart = MarineAccessor.getInstance().TWDList().getChart();
-        lineChart.setTitle("Test");
-        lineChart.getData().get(0).setName("TWD");
         root.setCenter(lineChart);
         //Codigo de prueba para el spinner
         Spinner<Integer> spinner = new Spinner<>(2, 10, 2);
-        MarineAccessor.getInstance().TWDList().maxSizeProperty().bind(spinner.valueProperty());
+        MarineAccessor.getInstance().TWDList().maxSizeProperty().bind(
+                Bindings.multiply(
+                    //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
+                    ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinner.valueProperty()),
+                    60)
+        );
         root.setBottom(spinner);
     }   
 }

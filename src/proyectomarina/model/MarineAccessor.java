@@ -62,8 +62,8 @@ public class MarineAccessor {
         return TWD;
     }
     //Lista de TWD para grafica
-    private final WindChartList TWDList = new WindChartList();
-    public WindChartList TWDList() { return TWDList; }
+    private final WindChart TWDList = new WindChart();
+    public WindChart TWDList() { return TWDList; }
     
     // True Wind Speed -- intensidad de viento
     private final DoubleProperty TWS = new SimpleDoubleProperty();
@@ -71,8 +71,8 @@ public class MarineAccessor {
         return TWS;
     }
     //Lista de TWS para grafica
-    private final WindChartList TWSList = new WindChartList();
-    public WindChartList TWSList() { return TWSList; }
+    private final WindChart TWSList = new WindChart();
+    public WindChart TWSList() { return TWSList; }
     
     // Air Temperature -- temperatura del aire
     private final DoubleProperty TEMP = new SimpleDoubleProperty();

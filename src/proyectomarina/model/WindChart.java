@@ -19,23 +19,37 @@ import javafx.scene.chart.XYChart;
  *
  * @author Alejandro
  */
-public class WindChartList {
+public class WindChart {
     
     private final ObservableList<XYChart.Data<Number,Number>> list;
-    private final IntegerProperty maxSize = new SimpleIntegerProperty(2);
+    private final IntegerProperty maxSize = new SimpleIntegerProperty(120); //En segundos, pues 1 dato = 1 segundo
     
-    public WindChartList() {
+    private String title, seriesName, xLabel, yLabel;
+    
+    public WindChart() {
         list = FXCollections.observableArrayList();
         maxSize.addListener((obs, oldValue, newValue) -> checkSize());
     }
-    //Ponemos la etiqueta synchronized para evitar condiciones de carrera con maxSize
-    private synchronized void checkSize() {
+    //Getters
+    public String getTitle() { return title; }
+    public String getSeriesName() { return seriesName; }
+    public String getXLabel() { return xLabel; }
+    public String getYLabel() { return yLabel; }
+    public int getMaxSize() { return maxSize.get(); }
+    //Setters
+    public void setTitle(String t) { title = t; }
+    public void setSeriesName(String sn) { seriesName = sn; }
+    public void setXLabel(String xn) { xLabel = xn; }
+    public void setYLabel(String yn) { yLabel = yn; }
+    public void setMaxSize(int size) { maxSize.set(size); checkSize(); }
+    
+    private void checkSize() {
         while (list.size() > maxSize.get()) { list.remove(0); }
     }
     public void add(double e) {
         XYChart.Data<Number, Number> data = new XYChart.Data<>(0, e);
         for (XYChart.Data<Number, Number> d : list) {
-            d.setXValue(d.getXValue().intValue()+1);
+            d.setXValue(d.getXValue().doubleValue() + (1/60.0)); //Le añadimos 1 segundo por cada dato, o sea, 1/60 de minuto
         }
         list.add(data);
         checkSize();
@@ -47,13 +61,17 @@ public class WindChartList {
     
     public LineChart<Number,Number> getChart() {
         NumberAxis xAxis = new NumberAxis(0, maxSize.get()-1, 1);
-        xAxis.upperBoundProperty().bind(Bindings.subtract(maxSize, 1)); // maxSize - 1
+        xAxis.upperBoundProperty().bind(Bindings.divide(maxSize, 60)); // maxSize / 60
         xAxis.setForceZeroInRange(true);
-        LineChart<Number,Number> chart = new LineChart<>(xAxis, new NumberAxis());
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel(xLabel); yAxis.setLabel(yLabel);
+        LineChart<Number,Number> chart = new LineChart<>(xAxis, yAxis);
+        chart.setTitle(title);
         chart.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         chart.setCreateSymbols(false);
         chart.setAnimated(false);
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName(seriesName);
         series.setData(getObservableList()); //Le pasamos la version solo lectura, ya que desde la chart se puede acceder a esta lista
         chart.getData().add(series);
         return chart;
