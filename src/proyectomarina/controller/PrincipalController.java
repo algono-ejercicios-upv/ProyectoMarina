@@ -17,6 +17,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import proyectomarina.model.MarineAccessor;
 
@@ -44,15 +45,13 @@ public class PrincipalController implements Initializable {
                 " ºC"
         ));
         //Codigo de prueba para la grafica
-        LineChart<Number, Number> lineChart = new LineChart<>(new NumberAxis(0, 10, 1), new NumberAxis());
+        LineChart<Number, Number> lineChart = MarineAccessor.getInstance().TWDList().getChart();
         lineChart.setTitle("Test");
-        lineChart.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        lineChart.setCreateSymbols(false);
-        lineChart.setAnimated(false);
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName("TWD");
-        series.setData(MarineAccessor.getInstance().TWDList().getObservableList());
-        lineChart.getData().add(series);
+        lineChart.getData().get(0).setName("TWD");
         root.setCenter(lineChart);
+        //Codigo de prueba para el spinner
+        Spinner<Integer> spinner = new Spinner<>(2, 10, 2);
+        MarineAccessor.getInstance().TWDList().maxSizeProperty().bind(spinner.valueProperty());
+        root.setBottom(spinner);
     }   
 }
