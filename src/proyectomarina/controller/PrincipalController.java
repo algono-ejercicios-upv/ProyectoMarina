@@ -10,12 +10,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import proyectomarina.model.MarineAccessor;
 
@@ -31,13 +35,19 @@ public class PrincipalController implements Initializable {
     private BorderPane root;
     @FXML
     private Label temp;
+    @FXML
+    private ToolBar buttonBar;
     
     //Windows
-    private Parent rootGraficas;
-    
+    private final Parent[] roots = new Parent[5];
+
     private void initWindows() {
         try {
-            rootGraficas = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            //roots[0] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            //roots[1] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            //roots[2] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            //roots[3] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            roots[4] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
         } catch (IOException ex) {
         }
     }
@@ -45,15 +55,22 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initWindows();
+        //Definir comportamiento de checkbox para modo noche
         nightMode.setOnAction((evt) -> {
             if (nightMode.isSelected()) { root.setStyle("-fx-base: rgba(60, 63, 65, 255)"); } //Enable Night Mode
             else { root.setStyle(Application.STYLESHEET_MODENA); } //Disable Night Mode
         });
+        //Binding para temperatura
         temp.textProperty().bind(Bindings.concat(
                 MarineAccessor.getInstance().TEMPProperty(),
                 " ºC"
         ));
-        root.setCenter(rootGraficas);
+        //Definimos acciones para los botones de la ToolBar
+        ObservableList<Node> items = buttonBar.getItems();
+        for (int i = 0; i < items.size(); i++) {
+            Parent otherRoot = roots[i];
+            ((Button) items.get(i)).setOnAction((evt) -> root.setCenter(otherRoot));
+        }
         /*//Codigo de prueba para la grafica
         WindChart TWDList = MarineAccessor.getInstance().TWDList();
         TWDList.setTitle("Test");
