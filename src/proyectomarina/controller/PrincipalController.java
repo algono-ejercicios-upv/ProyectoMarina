@@ -39,15 +39,14 @@ public class PrincipalController implements Initializable {
     private ToolBar buttonBar;
     
     //Windows
-    private final Parent[] roots = new Parent[5];
+    private final Parent[] roots = new Parent[4];
 
     private void initWindows() {
         try {
             //roots[0] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
             //roots[1] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
             //roots[2] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
-            //roots[3] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
-            roots[4] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            roots[3] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
         } catch (IOException ex) {
         }
     }

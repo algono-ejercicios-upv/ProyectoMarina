@@ -50,6 +50,7 @@ public class WindChart {
         chart.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         chart.setCreateSymbols(false);
         chart.setAnimated(false);
+        chart.setLegendVisible(false);
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName(seriesName);
         series.setData(getObservableList()); //Le pasamos la version solo lectura, ya que desde la chart se puede acceder a esta lista
@@ -69,11 +70,11 @@ public class WindChart {
         while (list.size() > maxTime.get()+1) { list.remove(0); } //maxTime + 1 = maxSize (pues dato nº 121 es del segundo 120)
     }
     public void add(double e) {
-        XYChart.Data<Number, Number> data = new XYChart.Data<>(0, e);
+        XYChart.Data<Number, Number> dato = new XYChart.Data<>(0, e);
         for (XYChart.Data<Number, Number> d : list) {
             d.setXValue(d.getXValue().doubleValue() + (1/60.0)); //Le añadimos 1 segundo por cada dato, o sea, 1/60 de minuto
         }
-        list.add(data);
+        list.add(dato);
         checkSize();
     }    
 }

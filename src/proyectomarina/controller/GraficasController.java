@@ -11,7 +11,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.layout.HBox;
@@ -39,8 +38,7 @@ public class GraficasController implements Initializable {
         spinnerTime.setValueFactory(new IntegerSpinnerValueFactory(2, 10, 2));
         //TWD Chart
         WindChart TWDChart = MarineAccessor.getInstance().TWDChart();
-        //TWDChart.setTitle("Dirección del viento");
-        TWDChart.setSeriesName("TWD");
+        TWDChart.setTitle("Dirección (TWD)");
         TWDChart.setXLabel("Tiempo transcurrido (minutos)");
         TWDChart.setYLabel("Dirección (grados)");
         TWDChart.maxTimeProperty().bind(
@@ -52,8 +50,7 @@ public class GraficasController implements Initializable {
         graficasBox.getChildren().add(TWDChart.getChart());
         //TWS Chart
         WindChart TWSChart = MarineAccessor.getInstance().TWSChart();
-        //TWSChart.setTitle("Intensidad del viento");
-        TWSChart.setSeriesName("TWS");
+        TWSChart.setTitle("Intensidad (TWS)");
         TWSChart.setXLabel("Tiempo transcurrido (minutos)");
         TWSChart.setYLabel("Velocidad (Kn)");
         TWSChart.maxTimeProperty().bind(
