@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.PrincipalController">
    <bottom>
@@ -38,8 +39,14 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
          </BorderPane.margin>
          <children>
-            <Label text="Temperatura: " />
-            <Label fx:id="temp" />
+            <Label text="Temperatura: ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="temp">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </HBox>
    </top>

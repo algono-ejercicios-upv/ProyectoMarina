@@ -37,7 +37,7 @@ public class PrincipalController implements Initializable {
     private Label temp;
     @FXML
     private ToolBar buttonBar;
-    
+
     //Windows
     private final Parent[] roots = new Parent[4];
 
