@@ -5,7 +5,6 @@
  */
 package proyectomarina.model;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -22,7 +21,7 @@ import javafx.scene.chart.XYChart;
 public class WindChart {
     
     private final ObservableList<XYChart.Data<Number,Number>> list;
-    private final IntegerProperty maxTime = new SimpleIntegerProperty(120); //En segundos, pues 1 dato = 1 segundo
+    private final IntegerProperty maxTime = new SimpleIntegerProperty(2); //En minutos, pues es lo que usa el xAxis
     
     private String title, seriesName, xLabel, yLabel;
     
@@ -36,12 +35,11 @@ public class WindChart {
     public String getXLabel() { return xLabel; }
     public String getYLabel() { return yLabel; }
     public int getMaxTime() { return maxTime.get(); }
-    //Devolvemos una version solo lectura para que solo se puedan insertar o eliminar elementos de la lista desde esta clase
-    public ObservableList<XYChart.Data<Number,Number>> getObservableList() { return FXCollections.unmodifiableObservableList(list); }
+    public ObservableList<XYChart.Data<Number,Number>> getObservableList() { return list; }
     //Obtienes la grafica con los datos de list
     public LineChart<Number,Number> getChart() {
         NumberAxis xAxis = new NumberAxis(0, 2, 1); //upperBound (2) aqui es un valor arbitrario, ya que luego hacemos binding
-        xAxis.upperBoundProperty().bind(Bindings.divide(maxTime, 60)); // maxTime / 60
+        xAxis.upperBoundProperty().bind(maxTime);
         xAxis.setForceZeroInRange(true);
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel(xLabel); yAxis.setLabel(yLabel);
@@ -53,28 +51,29 @@ public class WindChart {
         chart.setLegendVisible(false);
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName(seriesName);
-        series.setData(getObservableList()); //Le pasamos la version solo lectura, ya que desde la chart se puede acceder a esta lista
+        series.setData(list);
         chart.getData().add(series);
         return chart;
     }
+    //Properties
+    public IntegerProperty maxTimeProperty() { return maxTime; }
     //Setters
     public void setTitle(String t) { title = t; }
     public void setSeriesName(String sn) { seriesName = sn; }
     public void setXLabel(String xn) { xLabel = xn; }
     public void setYLabel(String yn) { yLabel = yn; }
     public void setMaxTime(int time) { maxTime.set(time); checkSize(); }
-    //Properties
-    public IntegerProperty maxTimeProperty() { return maxTime; }
     //Other methods
     private void checkSize() {
-        while (list.size() > maxTime.get()+1) { list.remove(0); } //maxTime + 1 = maxSize (pues dato nº 121 es del segundo 120)
+        //maxTime * 60 (1 dato == 1 segundo) + 1 = maxSize (pues dato nº 121 es del segundo 120)
+        while (list.size() > maxTime.get() * 60 + 1) { list.remove(0); }
     }
-    public void add(double e) {
-        XYChart.Data<Number, Number> dato = new XYChart.Data<>(0, e);
+    public void add(Number n) {
+        XYChart.Data<Number, Number> dato = new XYChart.Data<>(0, n);
         for (XYChart.Data<Number, Number> d : list) {
             d.setXValue(d.getXValue().doubleValue() + (1/60.0)); //Le añadimos 1 segundo por cada dato, o sea, 1/60 de minuto
         }
         list.add(dato);
         checkSize();
-    }    
+    }
 }

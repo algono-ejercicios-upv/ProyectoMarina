@@ -41,24 +41,16 @@ public class GraficasController implements Initializable {
         TWDChart.setTitle("Dirección (TWD)");
         TWDChart.setXLabel("Tiempo transcurrido (minutos)");
         TWDChart.setYLabel("Dirección (grados)");
-        TWDChart.maxTimeProperty().bind(
-            Bindings.multiply(
-            //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
-            ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinnerTime.valueProperty()),
-            60)
-        );
+        //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
+        TWDChart.maxTimeProperty().bind(ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinnerTime.valueProperty()));
         graficasBox.getChildren().add(TWDChart.getChart());
         //TWS Chart
         WindChart TWSChart = MarineAccessor.getInstance().TWSChart();
         TWSChart.setTitle("Intensidad (TWS)");
         TWSChart.setXLabel("Tiempo transcurrido (minutos)");
         TWSChart.setYLabel("Velocidad (Kn)");
-        TWSChart.maxTimeProperty().bind(
-            Bindings.multiply(
-            //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
-            ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinnerTime.valueProperty()),
-            60)
-        );
+        //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
+        TWSChart.maxTimeProperty().bind(ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinnerTime.valueProperty()));
         graficasBox.getChildren().add(TWSChart.getChart());
     } 
 }
