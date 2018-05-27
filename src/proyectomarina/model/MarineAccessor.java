@@ -133,6 +133,9 @@ public class MarineAccessor {
 
         @Override
         public void sentenceRead(HDGSentence sentence) {
+            //Usar Platform.runLater() en todos los listener me permite usar bindings
+            //para asociar directamente la Property indicada con su Label (o el elemento que sea)
+            //sin tener que preocuparme ya que siempre se harán los cambios en la FX Application Thread
             Platform.runLater(() -> {
                 HDG.set(sentence.getHeading());
             });     

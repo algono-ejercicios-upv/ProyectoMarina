@@ -43,9 +43,9 @@ public class PrincipalController implements Initializable {
 
     private void initWindows() {
         try {
-            //roots[0] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
-            //roots[1] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
-            //roots[2] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
+            roots[0] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/VientoView.fxml"));
+            roots[1] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/EstadoView.fxml"));
+            roots[2] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GPSView.fxml"));
             roots[3] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/GraficasView.fxml"));
         } catch (IOException ex) {
         }
@@ -61,8 +61,7 @@ public class PrincipalController implements Initializable {
         });
         //Binding para temperatura
         temp.textProperty().bind(Bindings.concat(
-                MarineAccessor.getInstance().TEMPProperty(),
-                " ºC"
+            MarineAccessor.getInstance().TEMPProperty(), "ºC"
         ));
         //Definimos acciones para los botones de la ToolBar
         ObservableList<Node> items = buttonBar.getItems();
@@ -70,22 +69,5 @@ public class PrincipalController implements Initializable {
             Parent otherRoot = roots[i];
             ((Button) items.get(i)).setOnAction((evt) -> root.setCenter(otherRoot));
         }
-        /*//Codigo de prueba para la grafica
-        WindChart TWDList = MarineAccessor.getInstance().TWDList();
-        TWDList.setTitle("Test");
-        TWDList.setSeriesName("TWD");
-        TWDList.setXLabel("Minutos pasados desde el momento actual");
-        TWDList.setYLabel("Dirección (grados)");
-        LineChart<Number, Number> lineChart = MarineAccessor.getInstance().TWDList().getChart();
-        root.setCenter(lineChart);
-        //Codigo de prueba para el spinner
-        Spinner<Integer> spinner = new Spinner<>(2, 10, 2);
-        MarineAccessor.getInstance().TWDList().maxTimeProperty().bind(
-        Bindings.multiply(
-        //Basicamente necesita esa conversion para poder hacer Binding (ReadOnlyObjectProperty<Double> -> ReadOnlyDoubleProperty)
-        ReadOnlyDoubleProperty.readOnlyDoubleProperty(spinner.valueProperty()),
-        60)
-        );
-        root.setTop(spinner);*/
     }   
 }

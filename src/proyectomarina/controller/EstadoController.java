@@ -18,16 +18,13 @@ import proyectomarina.model.MarineAccessor;
  *
  * @author aleja
  */
-public class VientoController implements Initializable {
+public class EstadoController implements Initializable {
+
     @FXML
-    private Label awa;
+    private Label pitch;
     @FXML
-    private Label twd;
-    @FXML
-    private Label tws;
-    @FXML
-    private Label aws;
-    
+    private Label roll;
+
 
     /**
      * Initializes the controller class.
@@ -36,17 +33,11 @@ public class VientoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        awa.textProperty().bind(Bindings.concat(
-            MarineAccessor.getInstance().AWAProperty(), "º"
+        pitch.textProperty().bind(Bindings.concat(
+            MarineAccessor.getInstance().PTCHProperty(), "º"
         ));
-        aws.textProperty().bind(Bindings.concat(
-            MarineAccessor.getInstance().AWSProperty(), "Kn"
-        ));
-        twd.textProperty().bind(Bindings.concat(
-            MarineAccessor.getInstance().TWDProperty(), "º"
-        ));
-        tws.textProperty().bind(Bindings.concat(
-            MarineAccessor.getInstance().TWSProperty(), "Kn"
+        roll.textProperty().bind(Bindings.concat(
+            MarineAccessor.getInstance().ROLLProperty(), "º"
         ));
     }    
     
