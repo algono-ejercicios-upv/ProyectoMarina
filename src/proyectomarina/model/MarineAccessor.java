@@ -48,6 +48,9 @@ public class MarineAccessor {
     // CUIDADO, el objeto de la clase SentenceReader se ejecuta en un hilo
     // no se pueden modificar las propiedades de los objetos graficos desde
     // un metodo ejecutado en este hilo
+    
+    //Para arreglar el problema mencionado arriba, utilizo Platform.runLater() en todos los Listeners de esta clase
+    //(para info más extendida, mirar en esa parte)
     private SentenceReader reader;
     
     //Heading - compas magnetic
@@ -114,6 +117,10 @@ public class MarineAccessor {
         return GPS;
     }
     
+    private final NavigationChart GPSChart = new NavigationChart();
+    public NavigationChart GPSChart() {
+        return GPSChart;
+    }
     // COG -- rumbo del GPS
     private final DoubleProperty COG = new SimpleDoubleProperty();
     public DoubleProperty COGProperty() {
@@ -128,14 +135,16 @@ public class MarineAccessor {
     //====================================================================
     //anadir tantos sentenceListener como tipos de sentence queremos tratar
     // anade todas las clases de que extiendan AbstractSentenceListener que necesites
+    
+    //Usar Platform.runLater() en todos los listener me permite usar bindings
+    //para asociar directamente la Property indicada con su Label (o el elemento que sea)
+    //sin tener que preocuparme ya que siempre se harán los cambios en la FX Application Thread
+    
     class HDGSentenceListener
             extends AbstractSentenceListener<HDGSentence> {
 
         @Override
         public void sentenceRead(HDGSentence sentence) {
-            //Usar Platform.runLater() en todos los listener me permite usar bindings
-            //para asociar directamente la Property indicada con su Label (o el elemento que sea)
-            //sin tener que preocuparme ya que siempre se harán los cambios en la FX Application Thread
             Platform.runLater(() -> {
                 HDG.set(sentence.getHeading());
             });     
@@ -192,7 +201,9 @@ public class MarineAccessor {
         @Override
         public void sentenceRead(RMCSentence sentence) {
             Platform.runLater(() -> {
-                GPS.set(sentence.getPosition()); // GPS = LAT + LON
+                Position gps = sentence.getPosition();
+                GPS.set(gps); // GPS = LAT + LON
+                GPSChart.setPos(gps.getLatitude(), gps.getLongitude());
                 COG.set(sentence.getCourse());
                 SOG.set(sentence.getSpeed());
             });

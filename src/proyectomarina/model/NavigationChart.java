@@ -24,11 +24,11 @@ public class NavigationChart {
     
     private boolean started = false; //Indica si se ha establecido ya o no la primera posición de la que partimos (esta será nuestro centro)
     
-    public static final double RANGE = 0.00005; //El rango que tendrá la gráfica (ajustado para que los cambios sean perceptibles)
+    public static final double RANGE = 0.00004; //El rango que tendrá la gráfica (ajustado para que los cambios sean perceptibles)
     public static final double TICK_UNIT = 0.00002; //Cada cuánto se mostrará el valor en las líneas
     
-    //Especifica que los valores mostrados en las líneas de las 'x' y las 'y' muestren hasta 5 decimales
-    private final NumberStringConverter formatter = new NumberStringConverter("###.#####");
+    //Especifica que los valores mostrados en las líneas de las 'x' y las 'y' muestren hasta 5 decimales (rellenando con ceros)
+    private final NumberStringConverter formatter = new NumberStringConverter("##0.00000");
     
     public NavigationChart() {
         pos = new XYChart.Data<>(0, 0);

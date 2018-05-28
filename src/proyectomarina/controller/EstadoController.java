@@ -11,6 +11,8 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import proyectomarina.model.MarineAccessor;
 
 /**
@@ -24,6 +26,12 @@ public class EstadoController implements Initializable {
     private Label pitch;
     @FXML
     private Label roll;
+    @FXML
+    private Label hdg;
+    @FXML
+    private ImageView pitchImage;
+    @FXML
+    private ImageView rollImage;
 
 
     /**
@@ -36,9 +44,19 @@ public class EstadoController implements Initializable {
         pitch.textProperty().bind(Bindings.concat(
             MarineAccessor.getInstance().PTCHProperty(), "º"
         ));
+        pitchImage.setImage(new Image("/proyectomarina/images/barco-lateral.png"));
+        pitchImage.rotateProperty().bind(MarineAccessor.getInstance().PTCHProperty());
+        
         roll.textProperty().bind(Bindings.concat(
             MarineAccessor.getInstance().ROLLProperty(), "º"
         ));
+        rollImage.setImage(new Image("/proyectomarina/images/barco-frente.png"));
+        rollImage.rotateProperty().bind(MarineAccessor.getInstance().ROLLProperty());
+        
+        hdg.textProperty().bind(Bindings.concat(
+            MarineAccessor.getInstance().HDGProperty(), "º"
+        ));
+        
     }    
     
 }

@@ -67,11 +67,11 @@
          <children>
             <Label text="Temperatura: ">
                <font>
-                  <Font size="18.0" />
+                  <Font size="14.0" />
                </font></Label>
             <Label fx:id="temp">
                <font>
-                  <Font size="18.0" />
+                  <Font size="14.0" />
                </font></Label>
          </children>
       </HBox>

@@ -7,13 +7,13 @@ package proyectomarina.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import net.sf.marineapi.nmea.util.Position;
+import javafx.scene.layout.VBox;
 import proyectomarina.model.MarineAccessor;
+import proyectomarina.model.NavigationChart;
 
 /**
  * FXML Controller class
@@ -30,8 +30,9 @@ public class GPSController implements Initializable {
     private Label cog;
     @FXML
     private Label sog;
-
-   
+    @FXML
+    private VBox chartBox;
+ 
 
     /**
      * Initializes the controller class.
@@ -57,6 +58,7 @@ public class GPSController implements Initializable {
             MarineAccessor.getInstance().SOGProperty(), "Kn"
         ));
         
+        chartBox.getChildren().add(MarineAccessor.getInstance().GPSChart().getChart());
     }    
     
 }

@@ -2,144 +2,134 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.VientoController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-   </rowConstraints>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" spacing="25.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.VientoController">
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0">
+      <Label text="Viento">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="392.0" prefWidth="800.0">
          <children>
-            <Label text="Viento">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="392.0" prefWidth="800.0">
+            <VBox alignment="TOP_CENTER" prefHeight="347.0" prefWidth="406.0" spacing="50.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="347.0" prefWidth="406.0" spacing="50.0">
+                  <VBox alignment="CENTER">
                      <children>
-                        <VBox alignment="CENTER">
-                           <children>
-                              <Label text="Datos Reales" underline="true">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label text="(recogidos por la estación)" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label text="Dirección (TWD):">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="twd" text="Label">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font></Label>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label text="Intensidad (TWS):">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="tws" text="Label">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font></Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                        <Label text="Datos Reales">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="(recogidos por la estación)" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="347.0" prefWidth="406.0" spacing="50.0">
+                  <VBox alignment="CENTER" spacing="50.0">
                      <children>
-                        <VBox alignment="CENTER">
+                        <HBox alignment="CENTER" spacing="10.0">
                            <children>
-                              <Label text="Datos Aparentes" underline="true">
+                              <Label text="Dirección (TWD):">
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label text="(recogidos por el barco)" />
+                              <Label fx:id="twd">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
                            <children>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label text="Dirección (AWA):">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="awa" text="Label">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="50.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label text="Intensidad (AWS):">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="aws" text="Label">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
+                              <Label text="Intensidad (TWS):">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tws">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
                   </VBox>
                </children>
-            </HBox>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="347.0" prefWidth="406.0" spacing="50.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Datos Aparentes">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="(recogidos por el barco)" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="50.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Dirección (AWA):">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="awa">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Intensidad (AWS):">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="aws">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
-</GridPane>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+</VBox>
