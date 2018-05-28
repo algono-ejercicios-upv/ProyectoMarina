@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,9 +40,11 @@ public class PrincipalController implements Initializable {
     @FXML
     private ToolBar buttonBar;
 
-    //Windows
+    //Array para las ventanas centrales
     private final Parent[] roots = new Parent[4];
-
+    //Indica si el modo noche está puesto o no (para que otras clases lo puedan comprobar)
+    public static final BooleanProperty isNightMode = new SimpleBooleanProperty();
+    
     private void initWindows() {
         try {
             roots[0] = FXMLLoader.load(getClass().getResource("/proyectomarina/view/VientoView.fxml"));
@@ -55,6 +59,7 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initWindows();
         //Definir comportamiento de checkbox para modo noche
+        isNightMode.bind(nightMode.selectedProperty());
         nightMode.setOnAction((evt) -> {
             if (nightMode.isSelected()) { root.setStyle("-fx-base: rgba(60, 63, 65, 255)"); } //Enable Night Mode
             else { root.setStyle(Application.STYLESHEET_MODENA); } //Disable Night Mode
