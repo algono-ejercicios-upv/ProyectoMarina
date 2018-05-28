@@ -32,18 +32,12 @@ public class EstadoController implements Initializable {
     private ImageView pitchImage;
     @FXML
     private ImageView rollImage;
-    @FXML
-    private ImageView arrowImage1;
-    @FXML
-    private ImageView arrowImage2;
     
     //Imágenes (modo día y modo noche)
     private final Image barcoLateral = new Image("/proyectomarina/images/barco-lateral.png");
     private final Image barcoLateralNoche = new Image("/proyectomarina/images/barco-lateral-blanco.png");
     private final Image barcoFrente = new Image("/proyectomarina/images/barco-frente.png");
     private final Image barcoFrenteNoche = new Image("/proyectomarina/images/barco-frente-blanco.png");
-    private final Image flecha = new Image("/proyectomarina/images/flecha.png");
-    private final Image flechaNoche = new Image("/proyectomarina/images/flecha-blanco.png");
     
     /**
      * Initializes the controller class.
@@ -61,24 +55,23 @@ public class EstadoController implements Initializable {
         hdg.textProperty().bind(Bindings.concat(
             MarineAccessor.getInstance().HDGProperty(), "º"
         ));
-        //Se ponen las imágenes iniciales
-        pitchImage.setImage(barcoLateral); rollImage.setImage(barcoFrente);
-        arrowImage1.setImage(flecha); arrowImage2.setImage(flecha);
         
         //Bindings para que las imágenes de los barcos roten teniendo en cuenta los valores de PITCH y ROLL
-        pitchImage.rotateProperty().bind(MarineAccessor.getInstance().PTCHProperty());
-        rollImage.rotateProperty().bind(MarineAccessor.getInstance().ROLLProperty());
+        //PITCH: Valor positivo = Proa levantada 
+        //(Como este barco mira hacia la derecha, necesitamos que rote en sentido antihorario, así que negamos el valor)
+        pitchImage.rotateProperty().bind(Bindings.negate(MarineAccessor.getInstance().PTCHProperty()));
+        //ROLL: Valor positivo = Babor (izquierda) levantado 
+        //(Como este barco mira hacia nosotros, necesitamos que rote en sentido antihorario, así que negamos el valor)
+        rollImage.rotateProperty().bind(Bindings.negate(MarineAccessor.getInstance().ROLLProperty()));
         
         //Cuando se active el modo noche, se ponen las imágenes de color blanco (y viceversa)
         PrincipalController.isNightMode.addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 pitchImage.setImage(barcoLateralNoche);
                 rollImage.setImage(barcoFrenteNoche);
-                arrowImage1.setImage(flechaNoche); arrowImage2.setImage(flechaNoche);
             } else {
                 pitchImage.setImage(barcoLateral);
                 rollImage.setImage(barcoFrente);
-                arrowImage1.setImage(flecha); arrowImage2.setImage(flecha);
             }
         });
         

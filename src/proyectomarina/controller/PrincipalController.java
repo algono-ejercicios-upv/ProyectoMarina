@@ -59,11 +59,12 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initWindows();
         //Definir comportamiento de checkbox para modo noche
-        isNightMode.bind(nightMode.selectedProperty());
         nightMode.setOnAction((evt) -> {
             if (nightMode.isSelected()) { root.setStyle("-fx-base: rgba(60, 63, 65, 255)"); } //Enable Night Mode
             else { root.setStyle(Application.STYLESHEET_MODENA); } //Disable Night Mode
         });
+        //Binding para guardar en una property pública si el modo noche está o no activo, para que otras clases puedan verlo
+        isNightMode.bindBidirectional(nightMode.selectedProperty());
         //Binding para temperatura
         temp.textProperty().bind(Bindings.concat(
             MarineAccessor.getInstance().TEMPProperty(), "ºC"
