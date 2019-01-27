@@ -10,52 +10,45 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.PrincipalController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectomarina.controller.PrincipalController">
    <bottom>
-      <StackPane BorderPane.alignment="BOTTOM_RIGHT">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+      <StackPane>
          <children>
-            <StackPane>
-               <children>
-                  <ToolBar fx:id="buttonBar" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="807.0">
-                    <items>
-                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="141.0" text="Viento">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="143.0" text="Estado del barco">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="143.0" text="Navegación GPS">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="139.0" text="Gráficas">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
-                    </items>
-                     <StackPane.margin>
+            <ToolBar fx:id="buttonBar" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="807.0">
+              <items>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="141.0" text="Viento">
+                     <opaqueInsets>
                         <Insets />
-                     </StackPane.margin>
-                     <padding>
-                        <Insets left="35.0" />
-                     </padding>
-                  </ToolBar>
-                  <CheckBox fx:id="nightMode" contentDisplay="CENTER" mnemonicParsing="false" text="Modo Noche" StackPane.alignment="CENTER_RIGHT">
-                     <StackPane.margin>
-                        <Insets right="25.0" />
-                     </StackPane.margin>
-                  </CheckBox>
-               </children>
-            </StackPane>
+                     </opaqueInsets>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="143.0" text="Estado del barco">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="143.0" text="Navegación GPS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="139.0" text="Gráficas">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+              </items>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
+            </ToolBar>
+            <CheckBox fx:id="nightMode" contentDisplay="CENTER" mnemonicParsing="false" text="Modo Noche" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="25.0" />
+               </StackPane.margin>
+            </CheckBox>
          </children>
       </StackPane>
    </bottom>
